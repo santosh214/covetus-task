@@ -73,6 +73,8 @@ export default function DetailsForm() {
     <>
       <ToastContainer />
       <div className="container my-5 py-5 ">
+      <h2 className="pb-4 text-center"> Form Section</h2>
+
         {/* basic details  */}
         <div className="row">
           <h4>Basic Details</h4>

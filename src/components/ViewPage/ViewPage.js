@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router";
-export default function ViewPage(props) {
+export default function ViewPage() {
   const location = useLocation();
-console.log("loca",location.state)
   const [basicDetails, setBasicDetails] = useState(location.state.basicDetails);
   const [physicalStatus, setPhysicalStatus] = useState(
     location.state.physicalStatus
@@ -14,6 +13,8 @@ console.log("loca",location.state)
   return (
     <>
       <div className="container py-5">
+      <h2 className="pb-4 text-center"> View Section</h2>
+
         <div className="row ">
           <div className="col text-center pt-5">
             <h1>
