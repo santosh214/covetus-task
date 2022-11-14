@@ -2,9 +2,7 @@ import React, { useState } from "react";
 import { useLocation } from "react-router";
 export default function ViewPage(props) {
   const location = useLocation();
-  console.log("loc", location.state);
-
-  console.log("props", props);
+console.log("loca",location.state)
   const [basicDetails, setBasicDetails] = useState(location.state.basicDetails);
   const [physicalStatus, setPhysicalStatus] = useState(
     location.state.physicalStatus
@@ -15,7 +13,7 @@ export default function ViewPage(props) {
 
   return (
     <>
-      <div className="container">
+      <div className="container py-5">
         <div className="row ">
           <div className="col text-center pt-5">
             <h1>
@@ -115,6 +113,63 @@ export default function ViewPage(props) {
                 {personalLife.Nationality}
             </p>
           </div>
+
+
+
+        </div>
+        <div className="row">
+          <h4>Family </h4>
+          <hr />
+          <div className="col-lg-4">
+            <p className="fw-bold">Father's name</p>
+            <p>
+              {family.father}
+            </p>
+          </div>
+          <div className="col-lg-4">
+            <p className="fw-bold">Mother's name</p>
+            <p>
+                {family.mother}
+            </p>
+          </div>
+          <div className="col-lg-4">
+            <p className="fw-bold">Siblings</p>
+            <p>
+                {family.siblings}
+            </p>
+          </div>
+          <div className="col-lg-4">
+            <p className="fw-bold">children</p>
+            <p>
+                {family.children}
+            </p>
+          </div>
+
+        
+
+
+
+        </div>
+
+        <div className="row">
+          <h4>RelationShip </h4>
+          <hr />
+          <div className="col-lg-4">
+            <p className="fw-bold">Marital status</p>
+            <p>
+              {relationShip.MaritalStatus}
+            </p>
+          </div>
+          <div className="col-lg-4">
+            <p className="fw-bold">Boyfriend</p>
+            {relationShip.biyfriends.length>0? relationShip.biyfriends.map((e,i)=>{
+                return(
+                    <p key={i}>{e}</p>
+                )
+            }):''}
+          </div>
+        
+        
 
 
 

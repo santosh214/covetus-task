@@ -1,13 +1,11 @@
-import React, { useState } from "react";
+import moment from "moment";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-
-
-
-
+import { ToastContainer, toast } from "react-toastify";
 
 export default function DetailsForm() {
-const navigate=useNavigate()
-    const [basicDetails, setBasicDetails] = useState({
+  const navigate = useNavigate();
+  const [basicDetails, setBasicDetails] = useState({
     name: "",
     nickName: "",
     profession: "",
@@ -15,8 +13,8 @@ const navigate=useNavigate()
   });
 
   const [physicalStatus, setPhysicalStatus] = useState({
-    heightfoot: '',
-    heightInch: '',
+    heightfoot: "",
+    heightInch: "",
     EyeColor: "",
     weight: 0,
     hairColor: "",
@@ -25,7 +23,7 @@ const navigate=useNavigate()
   const [personalLife, setPersonalLife] = useState({
     BirthPlace: "",
     Zodiac: "",
-    Religion: '',
+    Religion: "",
     School: "",
     Graduation: "",
     homeAddress: "",
@@ -38,31 +36,43 @@ const navigate=useNavigate()
     siblings: "",
     children: "",
   });
-  const [relationShip, setRelationship] = useState({
-    MaritalStatus: "",
-    biyfriends: [],
-  });
+
   const [boyfriend, setBoyfriend] = useState("");
   const [boyfriendArr, setBoyfriendArr] = useState([]);
-  console.log("physicalStatus",physicalStatus)
+
+  const [relationShip, setRelationship] = useState({
+    MaritalStatus: "",
+    biyfriends: boyfriendArr,
+  });
+
+  useEffect(() => {
+    return () => {};
+  }, [boyfriendArr]);
 
   const getAllDetails = () => {
-    console.log("hello", basicDetails);
-    navigate('/home',{
-        state:{
-            basicDetails:basicDetails,
-            physicalStatus:physicalStatus,
-            personalLife:personalLife,
-            family:family,
-            relationShip:relationShip,
 
-        }
-    })
+    if (!basicDetails.name) return toast.error("Please enter name!");
+    if (!basicDetails.nickName) return toast.error("Please enter nick name!");
+    if (!basicDetails.dob) return toast.error("Please select date of birth");
+    if (!basicDetails.profession)
+      return toast.error("Please select your profession");
+
+
+    navigate("/home", {
+      state: {
+        basicDetails: basicDetails,
+        physicalStatus: physicalStatus,
+        personalLife: personalLife,
+        family: family,
+        relationShip: relationShip,
+      },
+    });
   };
 
   return (
     <>
-      <div className="container mt-5 pt-5">
+      <ToastContainer />
+      <div className="container my-5 py-5 ">
         {/* basic details  */}
         <div className="row">
           <h4>Basic Details</h4>
@@ -138,6 +148,7 @@ const navigate=useNavigate()
                 onChange={(e) => {
                   setBasicDetails({ ...basicDetails, dob: e.target.value });
                 }}
+                max={moment().format("YYYY-MM-DD")}
               />
             </div>
           </div>
@@ -632,6 +643,10 @@ const navigate=useNavigate()
                   onClick={() => {
                     setBoyfriendArr([...boyfriendArr, boyfriend]);
                     setBoyfriend("");
+                    setRelationship({
+                      ...relationShip,
+                      biyfriends: [...boyfriendArr, boyfriend],
+                    });
                   }}
                 >
                   add
@@ -640,8 +655,11 @@ const navigate=useNavigate()
             </div>
           </div>
         </div>
-
-        <button onClick={getAllDetails}>click</button>
+        <div className="d-flex justify-content-center">
+          <button className="btn btn-primary mt-4" onClick={getAllDetails}>
+            Submit
+          </button>
+        </div>
       </div>
     </>
   );
